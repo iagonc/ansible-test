@@ -38,10 +38,7 @@
     copy:
       src: app/
       dest: /home/ubuntu/app
-  #- name: Copy docker-compose file
-    # copy:
-    #   src: /home/iagonc/mercadolivre-desafio/app/docker-compose.yaml
-    #   dest: /home/app/apiproxy  
+      
   - name: Run the container
     docker_compose:
       project_src: /home/ubuntu/app
