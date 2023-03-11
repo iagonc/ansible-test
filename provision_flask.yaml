@@ -9,7 +9,7 @@
     apt:
       name: ['apt-transport-https','ca-certificates','curl','software-properties-common']
       state: present
-      update_cache: yes
+      # update_cache: yes
   - name: Add Docker APT repository
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
@@ -33,16 +33,12 @@
       name: 
        - docker
        - docker-compose
+       
+  - name: run docker image
+    shell: docker run -dit --name iagonc -p 5000:5000 iagonc/proxy-api:latest
 
-  - name: Copy app files
-    copy:
-      src: app/
-      dest: /home/ubuntu/app
-      
-  - name: Run the container
-    docker_compose:
-      project_src: /home/ubuntu/app
-      state: present
+  - name: show running images
+    shell: docker images
 
   - name: Create nginx config
     template:
