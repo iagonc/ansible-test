@@ -1,7 +1,10 @@
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+
 server {
     listen 80;
 
     location / {
+        limit_req zone=one burst=5;
         include proxy_params;
         proxy_pass http://localhost:5000;
     }
